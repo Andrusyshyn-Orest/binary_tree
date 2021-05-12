@@ -304,21 +304,17 @@ class LinkedBST(AbstractCollection):
         Make balanced trees from elements.
         """
         if len(elements) == 1:
-            # print(elements[0])
             return elements[0]
 
         if len(elements) == 0:
             return None
 
         middle = len(elements)//2
-        # print(middle)
 
         element = elements[middle]
         self.add(element)
-        # print(element)
         elements_first_half = elements[:middle]
         elements_second_half = elements[middle + 1:]
-        # print(elements_first_half, elements_second_half)
         item1 = self._make_balanced_tree(elements_first_half)
         if item1 is not None:
             self.add(item1)
@@ -369,28 +365,19 @@ class LinkedBST(AbstractCollection):
         :rtype:
         """
 
-        if item not in self:
-            return None
-
         if self.isEmpty():
             return None
 
         curr_node = self._root
         curr_max = None
 
-        while True:
+        while curr_node is not None:
             if curr_node.data < item:
                 curr_max = curr_node.data
-                if curr_node.right is None:
-                    break
-                else:
-                    curr_node = curr_node.right
+                curr_node = curr_node.right
 
             else:
-                if curr_node.left is None:
-                    break
-                else:
-                    curr_node = curr_node.left
+               curr_node = curr_node.left
 
         return curr_max
 
@@ -406,4 +393,10 @@ class LinkedBST(AbstractCollection):
 
 
 if __name__ == "__main__":
-    pass
+    bst = LinkedBST()
+    for el in [3, -1, 5, 2, 6, -3, 4]:  # [-3,-1,2,3,4,5,6]
+        bst.add(el)
+    print(bst)
+
+    bst.rebalance()
+    print(bst)
